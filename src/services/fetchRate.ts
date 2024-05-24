@@ -9,18 +9,21 @@ const headers = {
   headers: { "X-CoinAPI-Key": api_key },
 };
 
-export interface FetchRateResponse {
+export interface FetchRateResponseData {
   rate: number;
 }
 
-export const fetchRate = async (symbol: string = "BTC") => {
+export const fetchRate = async (
+  symbol: string = "BTC"
+): Promise<FetchRateResponseData> => {
   try {
-    const response = await axios.get<FetchRateResponse>(
+    const response = await axios.get(
       `https://rest.coinapi.io/v1/exchangerate/${symbol}/USD`,
       headers
     );
-    return response;
-  } catch (e: any) {
-    throw e.response;
+
+    return response.data;
+  } catch (e: unknown) {
+    throw new Error("An unexpected error occurred");
   }
 };

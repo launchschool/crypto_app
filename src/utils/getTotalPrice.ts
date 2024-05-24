@@ -4,10 +4,19 @@ export const getTotalPrice = async (
   symbol: string = "BTC",
   quantity: number = 1
 ): Promise<number> => {
+  if (quantity <= 0) {
+    throw new Error("Quantity must be greater than zero.");
+  }
+
   try {
-    const { data } = await fetchRate(symbol);
-    return Math.round(data.rate * quantity * 100) / 100;
-  } catch (err: any) {
-    return err.data.error;
+    const data = await fetchRate(symbol);
+    const totalPrice = +(data.rate * quantity).toFixed(2);
+    return totalPrice;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error.message;
+    } else {
+      throw new Error("An unknown error occurred");
+    }
   }
 };
