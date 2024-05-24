@@ -7,7 +7,7 @@ export const handleResult = async (
 ): Promise<string> => {
   if (isValidQuantity(quantity)) {
     const p = await getTotalPrice(symbol, quantity);
-    return p;
+    return `The total amount is ${p}`;
   } else {
     return "The input for the amount is incorrect";
   }
