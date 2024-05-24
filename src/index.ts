@@ -6,7 +6,7 @@ let quantity = process.argv[3];
 (async () => {
   try {
     const result = await handleResult(symbol, quantity);
-    console.log(result);
+    console.log(`The total amount is $${result}`);
   } catch (error) {
     console.error("Error:", error);
   }
